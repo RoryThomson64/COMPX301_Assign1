@@ -12,6 +12,7 @@ public class myMinHeap {
 
     static String[] array;
     static int heapSize;
+    static int _heapCap;
     // public static void main(String[] args){
     //     // System.out.println("Prog Frog:"+args[0]);
     //     int heapCap;
@@ -39,6 +40,7 @@ public class myMinHeap {
 
 
     public myMinHeap(int heapCap){
+        _heapCap = heapCap;
         array = new String[heapCap];
         heapSize = 0;
         // System.out.println(array.length);
@@ -46,7 +48,7 @@ public class myMinHeap {
     }
     public static void insert(String newElement){
         // System.out.println(array.length);
-        System.out.println("Adding: "+ newElement);
+        // System.out.println("Adding: "+ newElement);
         if(heapSize < array.length){
             array[heapSize] = newElement;
             int index = heapSize;
@@ -67,7 +69,7 @@ public class myMinHeap {
         // dump();
         }
         else{
-            System.out.println("heap full");
+            // System.out.println("heap full");
             // System.out.println(heapSize);
         }
     }
@@ -93,7 +95,8 @@ public class myMinHeap {
         array[0] = array[heapSize-1];
         array[heapSize-1] = null;
         heapSize = heapSize-1;
-        dump();
+        // System.out.println(heapSize);
+        // dump();
         reheap();
         
         return min;
@@ -104,17 +107,30 @@ public class myMinHeap {
     public String peek(){
         return array[0];
     }
-    public static int load(String[] loadedData){
+    public void load(String[] loadedData){
         // System.out.println(loadedData[0]);
         // System.out.println(heapSize);
+        // for(int i = 0; i< loadedData.length; i++){
+        //     String temp = loadedData[i];
+        //     if(temp != null){
+        //         // System.out.println(loadedData[i]);
+        //         myMinHeap.insert(loadedData[i]);
+        //         if(heapSize >= array.length){
+        //          return i;
+        //         }
+        //     }
+        // }
+        array = new String[_heapCap];
+        heapSize = 0;
+        // int i = 0;
         for(int i = 0; i< loadedData.length; i++){
-            String temp = loadedData[i];
-            if(temp != null){
-                System.out.println(loadedData[i]);
-                myMinHeap.insert(loadedData[i]);
-                if(heapSize >= array.length){
-                 return i;
-                }
+        // while(loadedData[i] != null && i < loadedData.length-1){
+            if(loadedData[i]!= null){
+            System.out.println(loadedData[i]);
+            array[i] = loadedData[i];
+            }
+            else{
+                break;
             }
         }
         
@@ -122,8 +138,7 @@ public class myMinHeap {
         // array=loadedData.clone();
         // System.out.println("Length: "+array.length);
         reheap();
-        dump();
-        return -1;
+        // dump();
     }
     public static void reheap(){
         reheap(0);
@@ -142,7 +157,7 @@ public class myMinHeap {
         if(array[left] != null && left < heapSize && array[left].compareTo(array[min]) <0){
             min = left;
         }
-        System.out.println(array[min]);
+        // System.out.println(array[min]);
         if(array[right] !=null &&right < heapSize && array[right].compareTo(array[min]) <0){
             min = right;
         }
