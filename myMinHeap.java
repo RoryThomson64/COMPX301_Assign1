@@ -13,182 +13,93 @@ public class myMinHeap {
     static String[] array;
     static int heapSize;
     static int _heapCap;
-    // public static void main(String[] args){
-    //     // System.out.println("Prog Frog:"+args[0]);
-    //     int heapCap;
-    //     try {
-    //         heapCap = Integer.valueOf(args[0]);
-    //         if(heapCap <= 0){
-    //             // throw new NegativeHeapCap("Heap capacity is less than or equal to zero");
-    //             throw new Exception("Heap capacity is less than or equal to zero");
-    //         }
-    //     } catch (Exception e) {
-    //         System.out.println(e);
-    //         System.out.println("Expected Positive int: Setting heap Capcity to 31");
-    //         heapCap = 31;
-    //     }
-        
-    //    myMinHeap minHeap = new myMinHeap(heapCap);
-
-       
-    // //    minHeap.reheap();
-    //     minHeap.remove();
-
-
-
-    // }
-
-
     public myMinHeap(int heapCap){
         _heapCap = heapCap;
         array = new String[heapCap];
         heapSize = 0;
-        // System.out.println(array.length);
-        // System.out.println(array[0]);
     }
     public static void insert(String newElement){
-        // System.out.println(array.length);
-        // System.out.println("Adding: "+ newElement);
         if(heapSize < array.length){
             array[heapSize] = newElement;
             int index = heapSize;
             heapSize +=1;
-            // System.out.println(array[parent(index)]);
             while(index != 0&& array[index].compareTo(array[parent(index)])< 0){
-                 // String temp = array[index-1];
                 String temp = array[parent(index)];
-                // System.out.println(temp+" is less than "+ array[index]);
-                // array[index-1] = array[index];
-                // array[parent(index)] = array[index];
-                // array[index] = temp;
                 swap(parent(index), index);
-                // swap(index,parent(index) );
-                // index = index -1;
                 index = parent(index);
-        }
-        // dump();
-        }
-        else{
-            // System.out.println("heap full");
-            // System.out.println(heapSize);
+            }
         }
     }
     public String remove(){
-        // if(array[remIndex] == null){
-        //     System.out.println("Tryed to remove: "+ remIndex+" Found Null");
-        //     return;
-        // }
-        // System.out.println("Removing: "+ array[remIndex]+" At: "+remIndex);
-        // // array[remIndex] = null;
-        // int increment = 0;
-        // while(array[remIndex+ increment] != null){
-        //     array[remIndex+ increment] = array[remIndex+ increment+1];
-        //     increment +=1;
-        // }
-        // heapSize -= 1;
-        // dump();
-
-        // decreaseKey(remIndex, Integer.MIN_VALUE);
-        
         String min = array[0];
-        // System.out.println("Removing "+ min);
+        // System.out.println(heapSize);
         array[0] = array[heapSize-1];
         array[heapSize-1] = null;
         heapSize = heapSize-1;
-        // System.out.println(heapSize);
-        // dump();
-        reheap();
-        
+        reheap(0);
         return min;
     }
-    public void replace(){
-
+    public void replace(String input){
+        array[0] = input;
+        reheap(0);
     }
     public String peek(){
         return array[0];
     }
     public void load(String[] loadedData){
-        // System.out.println(loadedData[0]);
-        // System.out.println(heapSize);
-        // for(int i = 0; i< loadedData.length; i++){
-        //     String temp = loadedData[i];
-        //     if(temp != null){
-        //         // System.out.println(loadedData[i]);
-        //         myMinHeap.insert(loadedData[i]);
-        //         if(heapSize >= array.length){
-        //          return i;
-        //         }
-        //     }
-        // }
         array = new String[_heapCap];
         heapSize = 0;
-        // int i = 0;
         for(int i = 0; i< loadedData.length; i++){
-        // while(loadedData[i] != null && i < loadedData.length-1){
             if(loadedData[i]!= null){
-            System.out.println(loadedData[i]);
             array[i] = loadedData[i];
+            heapSize = heapSize+1;
             }
             else{
                 break;
             }
         }
+        for(int i = (heapSize/2); i>= 0; i--){
+            reheap(i);
+        }
+        // verify();
         
-        // heapSize = heapSize + loadedData.length;
-        // array=loadedData.clone();
-        // System.out.println("Length: "+array.length);
-        reheap();
-        // dump();
-    }
-    public static void reheap(){
-        reheap(0);
     }
     public static void reheap(int i){
-        // System.out.println("reheaping: "+ i);
         int left = leftChild(i);
         int right = rightChild(i);
         int min = i;
-        // System.out.println(min);
-        // System.out.println(left);
-        // System.out.println(right);
-        // System.out.println(heapSize);
-        // System.out.println(array[min]);
-        if(left< heapSize){
-        if(array[left] != null && left < heapSize && array[left].compareTo(array[min]) <0){
+
+        if(left < heapSize&& array[left] != null &&  array[left].compareTo(array[min]) <0){
             min = left;
         }
-        // System.out.println(array[min]);
-        if(array[right] !=null &&right < heapSize && array[right].compareTo(array[min]) <0){
+        if(right < heapSize &&array[right] !=null && array[right].compareTo(array[min]) <0){
             min = right;
         }
         if(min != i){
             swap(i, min);
-            // dump();
+            // System.out.println("Reheaping "+ min);
             reheap(min);
         }
-    }
+        
+    
     }
     public static void dump(){
         int ind = 0;
-        // String output = "";
-        // while(array[ind] != null){
-        //     // System.out.println(array[ind]);
-        //     output = output + array[ind]+", ";
-        //     ind += 1;
-        // }
         System.out.println("<---- DUMP START ---->");
         while(ind < heapSize && array[ind] != null){
-            if(ind *2+2 < heapSize){
+            // if(ind *2+2 < heapSize){
             System.out.println("INDEX: "+ ind);
             System.out.println("PARENT: "+ array[parent(ind)]);
             System.out.println("CURRENT: "+ array[ind]);
-            System.out.println("LEFT: "+ array[leftChild(ind)]);
-            System.out.println("RIGHT: "+ array[rightChild(ind)]+"\r\n");
+            if(leftChild(ind) < _heapCap){
+                System.out.println("LEFT: "+ array[leftChild(ind)]);
             }
+            if(rightChild(ind) < _heapCap){
+                System.out.println("RIGHT: "+ array[rightChild(ind)]+"\r\n");
+            }
+            // }
             ind =ind+ 1 ;
         }
-        
-        // System.out.println(output);
     }
 
     static int parent(int i){
@@ -212,12 +123,18 @@ public class myMinHeap {
             i = parent(i);
         }
     }
-
-
+    static void verify(){
+        for(int i = 0; i < heapSize; i++){
+            if(leftChild(i) < heapSize){
+                if(array[i].compareTo(array[leftChild(i)]) >0){
+                    System.err.println("Error in heap property");
+                }
+            }
+            if(rightChild(i) < heapSize){
+                if(array[i].compareTo(array[rightChild(i)]) >0){
+                    System.err.println("Error in heap property");
+                }
+            }
+        }
+    }
 }
-
-// public class NegativeHeapCap extends Exception{
-//     public NegativeHeapCap (String str){
-//         super(str);
-//     }
-// }

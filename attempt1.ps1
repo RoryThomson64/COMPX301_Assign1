@@ -1,3 +1,6 @@
 javac ./myMinHeap.java
 javac ./CreateRuns.java
-cat ./MobyDick.txt | java CreateRuns 31
+javac ./DistributeRuns.java
+javac ./MergeRuns.java
+rm *.runs
+cat ./MobyDick.txt | java CreateRuns 10 | java MergeRuns 2
