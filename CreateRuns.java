@@ -20,60 +20,67 @@ public class CreateRuns {
         try {
             while(true){
                 String line;
-            if(lastLine != null){
-                line = lastLine;
-                lastLine = null;
-            }
-            else{
-                line = buffReader.readLine();
-                
-            }
-            if(line != null){
-                if(current < heapCap){
-                    array[current] = line;
-                    current = current+1;                   
+                if(lastLine != null){
+                    line = lastLine;
+                    lastLine = null;
                 }
                 else{
-                    lastLine = line;
-                    runs++;
-                    minHeap.load(array);
-                    lineCountIn = lineCountIn + current;
-                    array = new String[heapCap];
-                    current = 0;
-                    while(minHeap.heapSize > 0){
-                        String currentValue = minHeap.remove();
-                        lineCountOut = lineCountOut +1;
-                        writer.write(currentValue+"///");
+                    line = buffReader.readLine();
+                    
+                }
+                if(line != null){
+                    if(current < heapCap){
+                        array[current] = line;
+                        current = current+1;                   
                     }
-                    // writer.write("!!RunEnd!!\r\n");
-                    writer.write("\r\n");
+                    else{
+                        lastLine = line;
+                        runs++;
+                        minHeap.load(array);
+                        lineCountIn = lineCountIn + current;
+                        array = new String[heapCap];
+                        current = 0;
+                        while(minHeap.heapSize > 0){
+                            String currentValue = minHeap.remove();
+                            lineCountOut = lineCountOut +1;
+                            writer.write(currentValue+"\r\n");
+                        }
+                        // writer.write("!!RunEnd!!\r\n");
+                        // writer.write(minHeap.remove()+"\r\n");
+                        writer.write("~~~\r\n");
+                        // lineCountOut = lineCountOut +1;
 
-                }
-            }
-            else{
-                if(current > 0){
-                    runs++;
-                    minHeap.load(array);
-                    lineCountIn = lineCountIn + current;
-                    array = new String[heapCap];
-                    current = 0;
-                    while(minHeap.heapSize > 0){
-                        String currentValue = minHeap.remove();
-                        lineCountOut = lineCountOut +1;
-                        writer.write(currentValue+"///");
+
                     }
-                    writer.write("!!RunEnd!!\r\n");
                 }
-                
-                break;
+                else{
+                    if(current > 0){
+                        runs++;
+                        minHeap.load(array);
+                        lineCountIn = lineCountIn + current;
+                        array = new String[heapCap];
+                        current = 0;
+                        while(minHeap.heapSize > 0){
+                            String currentValue = minHeap.remove();
+                            lineCountOut = lineCountOut +1;
+                            writer.write(currentValue+"\r\n");
+                        }
+                        // writer.write(minHeap.remove()+"\r\n");
+                        writer.write("~~~\r\n");
+                        // lineCountOut = lineCountOut +1;
+                        // writer.write("!!RunEnd!!\r\n");
+                    }
+                    writer.flush();
+                    writer.close();
+                    
+                    break;
+                }
             }
-        }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        
         
         System.err.println("Time To Run CreateRuns: "+ ((System.nanoTime()-startTime)/1000000)+" mS");
         System.err.println("Runs: "+runs);

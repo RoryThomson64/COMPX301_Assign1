@@ -35,9 +35,7 @@ public class DistributeRuns {
         int linesSeen =0;
         int runs =0;
         try {
-            
             while(true){
-                
                 while(currentFile < _numFiles){
                     // if( lastLine != null){
                     //     // System.err.println(lastLine);
@@ -45,35 +43,35 @@ public class DistributeRuns {
                     //     lastLine = null;
                         
                     // }
-                    // else{
-                        line = buffReader.readLine();
+                        // else{
+                    line = buffReader.readLine();            
+
+                    writer = new FileWriter(currentFile+".runs", true);
+                    while(line != null&&!line.equals("~~~")){
                         // System.err.println(line);
-                    // }
-                
-                    if(line != null){
-                        linesSeen = linesSeen +line.split("///").length;
-                        // String[] splitLine = line.split("///");
-                        // String runOutput = "";
-                        // writer = new FileWriter(currentFile+".runs", true);
-                        // for(int i =0;i < splitLine.length && splitLine[i].compareTo("!!RunEnd!!")!=0;i++){
-                        //     // writer.write(splitLine[i]+"\r\n");
-                        //     runOutput= runOutput + splitLine[i]+"///";
+                            // System.err.println(line);
                         // }
-                        // // writer.write("!!RunEnd!!\r\n");
-                        // writer.write(runOutput+"\r\n");
-                        // writer.close();
-                        
-                        writer = new FileWriter(currentFile+".runs", true);
+                    
+                        // if(line != "~~~"){
+                        linesSeen = linesSeen + 1;
                         writer.write(line+"\r\n");
                         runs++;
-                        writer.close();
-
+                        lastLine = line;
+                        // }
+                        // else{
+                        //     writer.write("~~~\r\n");
+                        //     break;
+                        // }
+                        line = buffReader.readLine();
                     }
-                    else{
-                        System.err.println("Saw null!!");
+                    
+                    writer.write("~~~\r\n");
+                    writer.flush();
+                    writer.close();
+                    currentFile +=1;
+                    if(line == null){
                         break;
                     }
-                    currentFile +=1;
                 }
 
                 lastLine =line;
@@ -83,7 +81,7 @@ public class DistributeRuns {
                 }
             }
         } catch (Exception e) {
-            System.err.println(e);
+            e.printStackTrace();
         }
         System.err.println("Distribute runs saw "+linesSeen+" lines");
         System.err.println("Distribute runs wrote "+runs+" runs");
