@@ -10,7 +10,18 @@ import java.io.OutputStreamWriter;
 public class CreateRuns {
     public static void main(String[]arg){
         long startTime = System.nanoTime();
-        int heapCap= Integer.parseInt(arg[0]);
+        int heapCap;
+        try{
+            if(Integer.parseInt(arg[0]) >0){
+                heapCap= Integer.parseInt(arg[0]);
+            }
+            else{
+                heapCap= 31;
+            }
+        }
+        catch(Exception e){
+            heapCap= 31;
+        }
         myMinHeap minHeap = new myMinHeap(heapCap);
         BufferedReader buffReader = new BufferedReader(new InputStreamReader(System.in));
         OutputStreamWriter writer =new OutputStreamWriter(System.out);
@@ -43,7 +54,7 @@ public class CreateRuns {
                         lineCountIn = lineCountIn + current;
                         array = new String[heapCap];
                         current = 0;
-                        while(minHeap.heapSize > 0){
+                        while(minHeap.get_heapSize() > 0){
                             String currentValue = minHeap.remove();
                             lineCountOut = lineCountOut +1;
                             writer.write(currentValue+"\r\n");
@@ -58,7 +69,7 @@ public class CreateRuns {
                         lineCountIn = lineCountIn + current;
                         array = new String[heapCap];
                         current = 0;
-                        while(minHeap.heapSize > 0){
+                        while(minHeap.get_heapSize() > 0){
                             String currentValue = minHeap.remove();
                             lineCountOut = lineCountOut +1;
                             writer.write(currentValue+"\r\n");
