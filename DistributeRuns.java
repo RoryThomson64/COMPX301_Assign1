@@ -1,7 +1,10 @@
+//ID: 1522996
+//Name: Rory Thomson
+
+
 import java.io.BufferedReader;
 import java.io.FileWriter;
 import java.io.InputStreamReader;
-import java.io.Writer;
 
 public class DistributeRuns {
     int _numFiles;
@@ -19,17 +22,17 @@ public class DistributeRuns {
         BufferedReader buffReader = new BufferedReader(new InputStreamReader(System.in));
         int currentFile = 0;
         FileWriter writer;
-        try {
-            while(currentFile < _numFiles){
-                writer = new FileWriter(currentFile+".runs");
-                writer.write("");
-                writer.close();
-                currentFile += 1;
-            }
-            currentFile =0;
-        } catch (Exception e) {
-            System.err.println(e);
-        }
+        // try {
+        //     while(currentFile < _numFiles){
+        //         writer = new FileWriter(currentFile+".runs");
+        //         writer.write("");
+        //         writer.close();
+        //         currentFile += 1;
+        //     }
+        //     currentFile =0;
+        // } catch (Exception e) {
+        //     System.err.println(e);
+        // }
         String line = null;
         String lastLine =null;
         int linesSeen =0;

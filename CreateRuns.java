@@ -1,10 +1,13 @@
+//ID: 1522996
+//Name: Rory Thomson
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
 public class CreateRuns {
-    //Need to add writing to files, find a way to check the validity of Output
     public static void main(String[]arg){
         long startTime = System.nanoTime();
         int heapCap= Integer.parseInt(arg[0]);
@@ -45,12 +48,7 @@ public class CreateRuns {
                             lineCountOut = lineCountOut +1;
                             writer.write(currentValue+"\r\n");
                         }
-                        // writer.write("!!RunEnd!!\r\n");
-                        // writer.write(minHeap.remove()+"\r\n");
                         writer.write("~~~\r\n");
-                        // lineCountOut = lineCountOut +1;
-
-
                     }
                 }
                 else{
@@ -65,10 +63,7 @@ public class CreateRuns {
                             lineCountOut = lineCountOut +1;
                             writer.write(currentValue+"\r\n");
                         }
-                        // writer.write(minHeap.remove()+"\r\n");
                         writer.write("~~~\r\n");
-                        // lineCountOut = lineCountOut +1;
-                        // writer.write("!!RunEnd!!\r\n");
                     }
                     writer.flush();
                     writer.close();
@@ -77,7 +72,6 @@ public class CreateRuns {
                 }
             }
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

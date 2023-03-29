@@ -1,11 +1,5 @@
-import java.util.ArrayList;
-import java.util.List;
-
 //ID: 1522996
 //Name: Rory Thomson
-
-
-
 
 
 public class myMinHeap {
