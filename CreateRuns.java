@@ -54,7 +54,7 @@ public class CreateRuns {
                         lineCountIn = lineCountIn + current;
                         array = new String[heapCap];
                         current = 0;
-                        while(minHeap.get_heapSize() > 0){
+                        while(minHeap.heapSize > 0){
                             String currentValue = minHeap.remove();
                             lineCountOut = lineCountOut +1;
                             writer.write(currentValue+"\r\n");
@@ -69,7 +69,7 @@ public class CreateRuns {
                         lineCountIn = lineCountIn + current;
                         array = new String[heapCap];
                         current = 0;
-                        while(minHeap.get_heapSize() > 0){
+                        while(minHeap.heapSize > 0){
                             String currentValue = minHeap.remove();
                             lineCountOut = lineCountOut +1;
                             writer.write(currentValue+"\r\n");
